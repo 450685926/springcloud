@@ -1,0 +1,24 @@
+Server:
+  port: 9527
+spring:
+  application:
+    name: springcloud-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+#      defaultZone: http://localhost:7001/eureka/,http://localhost:7002/eureka/,http://localhost:7003/eureka/
+  instance:
+    instance-id: zuul
+    prefer-ip-address: true
+
+zuul:
+  routes:
+    mydept.serviceId: springcloud-provider-dept
+    mydept.path: /mydept/**
+  ignored-services: springcloud-provider-dept #不能通过springcloud-provider-dept服务名在浏览器访问该服务了
+  prefix: /test
+#  ignored-services: "*"
+#http://127.0.0.1:9527/test/springcloud-provider-dept/dept/get/3
+#ignored-services: springcloud-provider-dept 此配置加了不能再按上述网址访问服务
+#http://127.0.0.1:9527/test/mydept/dept/get/3
